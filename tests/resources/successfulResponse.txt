@@ -1,0 +1,9 @@
+HTTP/1.1 202 Accepted
+Server: Cowboy
+Connection: close
+Content-Type: application/json; charset=utf-8
+Content-Length: 50
+Date: Fri, 20 May 2016 04:56:58 GMT
+Via: 1.1 vegur
+
+{"batchId":"ffaf8708-90de-4ed4-97ac-dcc63b1d13d5"}

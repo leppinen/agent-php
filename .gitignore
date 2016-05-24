@@ -1,0 +1,7 @@
+nbproject
+.metadata
+.DS_Store
+tests/.DS_Store
+tmp
+samples/resources/aino.io.api.conf
+samples/resources/example.request.json

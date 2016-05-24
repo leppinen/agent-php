@@ -1,0 +1,13 @@
+machine:
+  php:
+    version: 5.5.11
+dependencies:
+  pre:
+    - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
+test:
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit
+    - mkdir -p $CIRCLE_ARTIFACTS/CodeCoverage/
+    - cp $HOME/$CIRCLE_PROJECT_REPONAME/tmp/junit.logfile.xml $CIRCLE_TEST_REPORTS/junit/ ;  #JUnit tests 
+    - cp -R tmp/report/* $CIRCLE_ARTIFACTS/CodeCoverage/  #Code coverage report
+
