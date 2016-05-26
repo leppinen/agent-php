@@ -12,7 +12,7 @@ Aino.io works by analyzing transactions between enterprise applications and othe
 
 ## Technical requirements
 * PHP5
-* XDebug: PHPUnit requires also XDebug to produce JUnit log and other code coverage data.
+* XDebug (only needed for development): PHPUnit requires XDebug to produce JUnit log and other code coverage data.
 
 
 ## Installation
@@ -111,3 +111,7 @@ Add your apiKey into resources/aino.io.api.conf before running the script.
 
 * [Kreshnik Gunga](https://github.com/kgunga)
 * [Ville Harvala](https://github.com/vharvala)
+
+## [License](LICENSE)
+
+Copyright &copy; 2016 [Aino.io](http://aino.io). Licensed under the [Apache 2.0 License](LICENSE).
