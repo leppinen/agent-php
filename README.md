@@ -11,44 +11,27 @@ PHP implementation of Aino.io logging agent
 Aino.io works by analyzing transactions between enterprise applications and other pieces of software. This Agent helps to store data about the transactions to Aino.io platform using Aino.io Data API (version 2.0). See [API documentation](http://www.aino.io/api) for detailed information about the API.
 
 ## Technical requirements
-* PHP5
-* XDebug (only needed for development): PHPUnit requires XDebug to produce JUnit log and other code coverage data.
+* PHP 5
 
+## Example usage
 
-## Installation
-After project is cloned from github.com import aino.io.loader.php to your PHP file.
-Example:
+### 1. Import to your project
+Download the [latest release](https://github.com/Aino-io/agent-php/releases)
 
+Import ```aino.io.loader.php``` in your PHP file:
 ```
 require_once('/path/to/aino.io/agent/root/dir/vendor/aino.io.loader.php');
-```
 
-## Usage
-
-### 1. Import the agent
-After aino.io.loader.php is imported into your PHP file use agent as the following:
-
-```
 use io\aino\Agent;
-
-$agent = new Agent($apiKey);
-```
-Agent can be initiated also by API host and API version
-```
-$apiHost = 'https://data.aino.io:443'; // apiHost must contain port
-
-$agent = new Agent($apiKey, $apiHost, $apiVersion);
-
-or
-
-$agent = new Agent($apiKey, $apiHost);
 ```
 
 ### 2. Send a request to Aino.io:
 
-##### Sending with mandatory fields only
+#### Minimal example (only required fields)
 
 ```
+$agent = new Agent($apiKey);
+
 $from = 'Web shop';
 $to = 'DB';
 $status = 'success'; //success or failure or unknown
@@ -58,9 +41,21 @@ $result =  $agent->logTransaction($from,
                                    $status);
 ```
 
-##### Sending with all fields
+#### Full example
 
 ```
+$agent = new Agent($apiKey);
+
+$from = 'Web shop';
+$to = 'DB';
+$status = 'success'; //success or failure or unknown
+$message = 'Update users to master data.';
+$operation = 'Update master data';
+$payloadType = 'Users';
+$flowId = '123456789';
+$ids = [['idType' => 'UserId', 'values' => [1,2,3,4]]];
+$metadata = [['name' => 'Script type', 'value' => 'PHP']];
+
 $result =  $agent->logTransaction($from,
                                    $to,
                                    $status,
@@ -72,12 +67,12 @@ $result =  $agent->logTransaction($from,
                                    $metadata);
 ```
 
-##### Did we successfully send the request to Aino.io?
-This information can be read from the result array that was returned from the ```logTransaction``` function.
+## Debugging
+
+```logTransaction``` function returns a status object that you can use to verify successful communication with Aino.io.
 
 Successfull case:
 ```
-// $result contains successful response from Aino.io
 array(
     'message' => "Request successfully sent",
     'status' => "success",
@@ -85,9 +80,8 @@ array(
 );
 ```
 
-Error case:
+Example of an error case when using invalid/disabled API key:
 ```
-// $result contains error response from Aino.io
 array(
     'message' => "401 Unauthorized",
     'status' => "failure",
@@ -96,22 +90,15 @@ array(
 ```
 
 ## Samples
-See ```samples/AinoIoApiRunner.php``` how Aino.io PHP Agent is used. Do not use AinoIoApiRunner.php
-directly in your project, it is just a sample. AinoIoApiRunner.php can be used to send log entries to real
-Aino.io API. To send log entries to Aino.io using AinoIoApiRunner.php run the script as following:
+Check samples directory.
 
-```
-php AinoIoApiRunner.php resources/example.request.json
+## Contributing
 
-```
+### Technical requirements
+* XDebug: PHPUnit requires also XDebug to produce JUnit log and other code coverage data.
 
-Add your apiKey into resources/aino.io.api.conf before running the script.
 
-## Contributors
+### Contributors
 
 * [Kreshnik Gunga](https://github.com/kgunga)
 * [Ville Harvala](https://github.com/vharvala)
-
-## [License](LICENSE)
-
-Copyright &copy; 2016 [Aino.io](http://aino.io). Licensed under the [Apache 2.0 License](LICENSE).
