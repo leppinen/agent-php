@@ -8,6 +8,7 @@ test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
     - mkdir -p $CIRCLE_ARTIFACTS/CodeCoverage/
-    - cp $HOME/$CIRCLE_PROJECT_REPONAME/tmp/junit.logfile.xml $CIRCLE_TEST_REPORTS/junit/ ;  #JUnit tests 
+    - cp $HOME/$CIRCLE_PROJECT_REPONAME/tmp/junit.logfile.xml $CIRCLE_TEST_REPORTS/junit/ ;  #JUnit tests
     - cp -R tmp/report/* $CIRCLE_ARTIFACTS/CodeCoverage/  #Code coverage report
-
+    #Create release package from this build and save to build artifacts
+    - zip -r agent-php-build-$CIRCLE_BUILD_NUM.zip src vendor ; cp *.zip $CIRCLE_ARTIFACTS/
