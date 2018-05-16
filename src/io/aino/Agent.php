@@ -171,6 +171,13 @@ class Agent
        
         $response = $this->readResponse($connection);
         @fclose($connection);
+        // Just log failed Aino message for later resend
+        if($response['status'] == 'failure'){
+            error_log( "AINO_ERROR_START:");
+            error_log(gzdecode($body,$bodySize));
+            error_log( "AINO_ERROR_END:\n");
+            error_log($response['body']);
+        }
         return ['message' => $response['status'] == 'success'?
                             'Request successfully sent' : 
                             $response['http_code'] . ' ' . $response['http_message'], 

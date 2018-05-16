@@ -83,7 +83,7 @@ function fsockopen($hostname, $port = -1, &$errno, &$errstr, $timeout = 10) {
  * Description of newSeleneseTest
  *
  */
-class AinoIOAgentTest extends \PHPUnit_Framework_TestCase {
+class AinoIOAgentTest extends \PHPUnit\Framework\TestCase {
 
     public function setUp() {
         global $requestFile;
