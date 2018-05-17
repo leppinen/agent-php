@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: epcallan/php7-testing-phpunit:7.1-phpunit5
+    steps:
+      - checkout
+      - run: apt-get install zip -y
+      # Run tests
+      - run: phpunit tests/AinoIOAgentTest.php 
+      #Create release package from this build and save to build artifacts
+      - run: zip -r agent-php-build-$CIRCLE_BUILD_NUM.zip src vendor
+      # store unit-test results
+      - store_artifacts:
+          path: tmp/report
+      - store_artifacts:
+          path: agent-php-build-$CIRCLE_BUILD_NUM.zip 
